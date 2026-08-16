@@ -27,7 +27,7 @@ minúscula no servidor.
 - Vídeo do hero: Panda Video, ID `87b37712-49f5-4a73-b535-177e2493dc9f`
 - Contato: `contato@rodacomigo.com`
 - Instagram: `@rodacomigo.oscar`
-- Preço: R$ 96 ou 12x de R$ 8,00 · acesso por 12 meses
+- Preço: R$ 96 ou 3x de R$ 32,00 · acesso por 12 meses
 - Banner de cookies com bloqueio de pixels até o aceite
 
 Não há canal de WhatsApp.
