@@ -348,13 +348,22 @@
 
   // Os pixels só carregam depois do aceite — é o que a Política de Privacidade promete.
   function loadPixels(){
-    /* Meta Pixel e Google Tag entram aqui.
-       Exemplo:
-       var s = document.createElement('script');
-       s.async = true;
-       s.src = 'https://www.googletagmanager.com/gtag/js?id=SEU_ID';
-       document.head.appendChild(s);
-    */
+      if (window.fbq) return;
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+      document,'script','https://connect.facebook.net/pt_BR/fbevents.js');
+
+      fbq('init', '1089068424084649');
+      fbq('track', 'PageView');
+
+      // Clique em qualquer CTA que leva ao checkout do Guru
+      document.querySelectorAll('a[href*="clkdmg.site"]').forEach(function(a){
+        a.addEventListener('click', function(){
+          fbq('track', 'InitiateCheckout', {value: 96.00, currency: 'BRL'});
+        });
+      });
   }
 })();
 </script>
