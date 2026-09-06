@@ -357,13 +357,17 @@
 
       fbq('init', '1089068424084649');
       fbq('track', 'PageView');
-
-      // Clique em qualquer CTA que leva ao checkout do Guru
-      document.querySelectorAll('a[href*="clkdmg.site"]').forEach(function(a){
-        a.addEventListener('click', function(){
-          fbq('track', 'InitiateCheckout', {value: 96.00, currency: 'BRL'});
-        });
+      fbq('track', 'ViewContent', {
+        content_name: 'Roda Comigo',
+        content_ids: ['roda-comigo'],
+        content_type: 'product',
+        value: 96.00,
+        currency: 'BRL'
       });
+
+      // InitiateCheckout nao e disparado aqui de proposito.
+      // Quem envia esse evento e o Digital Manager Guru, pela API de Conversoes.
+      // Disparar tambem pelo navegador, sem eventID compartilhado, faria a Meta contar em dobro.
   }
 })();
 </script>
