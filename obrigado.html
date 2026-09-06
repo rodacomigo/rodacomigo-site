@@ -14,34 +14,6 @@
      Esta é a página de compra aprovada — é aqui que o evento Purchase
      do Meta Pixel e a conversão do Google Ads devem ser disparados.
      Cole o código de evento abaixo desta linha. -->
-<script>
-(function(){
-  // Purchase so dispara se a pessoa aceitou cookies (mesma regra do index.html)
-  var ok = null;
-  try { ok = localStorage.getItem('rc-cookies'); } catch(e){}
-  if (ok !== 'ok') return;
-
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-  document,'script','https://connect.facebook.net/pt_BR/fbevents.js');
-  fbq('init', '1089068424084649');
-  fbq('track', 'PageView');
-
-  // Le id e valor da transacao se o Guru mandar na URL; senao usa o preco do curso
-  var q = new URLSearchParams(location.search);
-  var id = q.get('transaction_id') || q.get('transaction') || q.get('order_id') || q.get('id') || null;
-  var val = parseFloat(q.get('value') || q.get('amount') || '96');
-  if (isNaN(val)) val = 96;
-
-  // Evita contar duas vezes se a pessoa der refresh na pagina
-  var mark = 'rc-purchase-' + (id || 'sem-id');
-  try { if (sessionStorage.getItem(mark)) return; sessionStorage.setItem(mark, '1'); } catch(e){}
-
-  fbq('track', 'Purchase', {value: val, currency: 'BRL'}, id ? {eventID: id} : undefined);
-})();
-</script>
 </head>
 <body>
 
