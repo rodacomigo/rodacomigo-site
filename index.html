@@ -25,7 +25,8 @@
 
 <!-- ═══════════════════════════════════════════════════════════════
      PIXEL / TAG — cole aqui quando tiver os IDs.
-     O disparo só acontece depois do aceite no banner de cookies,
+     Os pixels carregam por padrão, com base em legítimo interesse.
+     Quem recusa no banner (opt-out) fica registrado e não é rastreado,
      conforme a Política de Privacidade (item 6).
      ═══════════════════════════════════════════════════════════════ -->
 </head>
@@ -321,10 +322,10 @@
 
 <!-- ═══════════ BANNER DE COOKIES ═══════════ -->
 <div class="cookie" id="cookie" role="dialog" aria-label="Aviso de cookies">
-  <p>Usamos cookies para o site funcionar e, com sua permissão, para medir nossos anúncios. Detalhes na <a href="privacidade.html">Política de Privacidade</a>.</p>
+  <p>Usamos cookies para o site funcionar e para medir a eficácia dos nossos anúncios. Você pode recusar os cookies de publicidade quando quiser. Detalhes na <a href="privacidade.html">Política de Privacidade</a>.</p>
   <div class="cookie-actions">
-    <button class="btn" id="cookie-ok">Aceitar</button>
-    <button class="btn btn-ghost" id="cookie-no">Só o necessário</button>
+    <button class="btn" id="cookie-ok">Entendi</button>
+    <button class="btn btn-ghost" id="cookie-no">Recusar publicidade</button>
   </div>
 </div>
 
@@ -335,18 +336,20 @@
   var saved = null;
   try { saved = localStorage.getItem(KEY); } catch(e){}
 
+  // Legitimo interesse: os pixels carregam por padrao.
+  // Quem recusa (opt-out) fica gravado no navegador e nao volta a ser rastreado.
+  if (saved !== 'no') { loadPixels(); }
   if (!saved) { box.classList.add('show'); }
-  else if (saved === 'ok') { loadPixels(); }
 
   function decide(v){
     try { localStorage.setItem(KEY, v); } catch(e){}
     box.classList.remove('show');
-    if (v === 'ok') loadPixels();
+    if (v === 'no' && window.fbq) { try { fbq('consent', 'revoke'); } catch(e){} }
   }
   document.getElementById('cookie-ok').onclick = function(){ decide('ok'); };
   document.getElementById('cookie-no').onclick = function(){ decide('no'); };
 
-  // Os pixels só carregam depois do aceite — é o que a Política de Privacidade promete.
+  // Carrega por padrao; a recusa no banner interrompe o rastreamento.
   function loadPixels(){
       if (window.fbq) return;
       !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
